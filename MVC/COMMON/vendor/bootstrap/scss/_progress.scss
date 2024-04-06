@@ -1,0 +1,47 @@
+// Disable animation if transitions are disabled
+@if $enable-transitions {
+  @keyframes progress-bar-stripes {
+    from {
+      background-position: $progress-height 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+}
+
+.progress {
+  display: flex;
+  height: $progress-height;
+  overflow: hidden; // force rounded corners by cropping it
+  @use font-size($progress-font-size);
+  background-color: $progress-bg;
+  @use border-radius($progress-border-radius);
+  @use box-shadow($progress-box-shadow);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: $progress-bar-color;
+  text-align: center;
+  white-space: nowrap;
+  background-color: $progress-bar-bg;
+  @use transition($progress-bar-transition);
+}
+
+.progress-bar-striped {
+  @use gradient-striped();
+  background-size: $progress-height $progress-height;
+}
+
+@if $enable-transitions {
+  .progress-bar-animated {
+    animation: progress-bar-stripes $progress-bar-animation-timing;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
