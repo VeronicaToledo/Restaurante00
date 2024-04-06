@@ -13,11 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup JDK
-        uses: actions/setup-java@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          distribution: 'adopt'
-          java-version: '11'
+          php-version: '7.4'
+          extensions: intl, pdo, pdo_mysql
+
+      - name: Install Composer dependencies
+        run: composer install
 
       - name: SonarQube Scan
         env:
@@ -25,4 +28,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONARQUBE_URL }}
         run: |
-          ./gradlew sonarqube
+          sonar-scanner -Dsonar.projectKey=your_project_key -Dsonar.sources=. -Dsonar.php.coverage.reportPaths=coverage.xml
