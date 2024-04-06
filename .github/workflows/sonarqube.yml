@@ -21,7 +21,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=sqa_fe8e5bd1e47df6118965358e6b1d6f54a2831c6b
+            -Dsonar.projectKey=PROYECTO-RESTAURANTE
             -Dsonar.sources=.
             # Add any additional analysis parameters here
 
